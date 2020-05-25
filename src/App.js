@@ -5,8 +5,22 @@ import React, { Component } from 'react';
 
 import logo from './logo.svg';
 import './App.css';
-import Radium from 'radium'; //for css
+//import Radium ,{StyleRoot} from 'radium'; //for css //when use style component this one should remove-- radium can use for sudo selectord css
 import Persion from './Persion/Persion';
+import styled from 'styled-components';
+
+const StyledButton=styled.button`
+// background-color:green;
+background-color:${props=>props.alt ? 'red':'green'};
+color:white;
+font:inherit;
+border:1px solid blue;
+padding:8px;
+cursor:pointer;
+&:hover{ 
+  background-color: ${props=>props.alt ? 'salmon':'lightgreen'};
+  color: black;
+`;
 
 
 
@@ -113,13 +127,14 @@ class App extends Component {
 
       );
 
-      style.backgroundColor='red'; //for dynamic styling
-      style[':hover']={
-        backgroundColor:'blue',
-        color:'black'
-      }
+      // style.backgroundColor='red'; //for dynamic styling
+      // style[':hover']={
+      //   backgroundColor:'blue',
+      //   color:'black'
+      // }
     }
 
+    //for dynamic class change
     const classes =[];
     if(this.state.Persions.length<=2){
       classes.push('red');
@@ -128,7 +143,10 @@ class App extends Component {
       classes.push('bold');
 
     }
+
+    
     return (
+      //<StyleRoot>when use style component this one should remove
       <div className="App">
         <h1>Reat First App</h1>
         <p className={classes.join(' ')}>This is Realy Working</p>
@@ -139,14 +157,17 @@ class App extends Component {
         {/*for state example */}
 
         {/*<button onClick={this.switchNameHandler}>Switch Name</button>*/}
-        <button style={style} onClick={this.togglepersionshandler}>Switch Name</button>
+        {/* <button style={style} onClick={this.togglepersionshandler}>Switch Name</button> */}
+       
+        <StyledButton alt={this.state.showPersion} onClick={this.togglepersionshandler} >Switch Name</StyledButton>
         {persions}
       </div>
+      /*</StyleRoot>when use style component this one should remove*/
     );
     //return React.createElement('div',{className:'App'},React.createElement('h1',null,'I am in React'))
   }
 }
 
-//export default App;
-export default Radium(App); //when using radium for css
+export default App;
+//export default Radium(App); //when using radium for css ////when use style component this one should remove
 
